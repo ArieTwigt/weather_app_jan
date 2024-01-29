@@ -4,6 +4,8 @@ from app.models import PredictionRequest
 from app.forms import PredictionRequestForm
 from sqlalchemy.exc import IntegrityError
 
+from app.utils.import_weather_data import import_weather_by_city
+
 
 # create the first route
 @app.route('/', methods=['GET', 'POST'])
@@ -52,3 +54,36 @@ def index():
 
     return render_template("index.html", form=form, 
                                          prediction_requests=prediction_requests)
+
+
+
+# route for generating weather predictions
+@app.route('/get_weather_data', methods=['POST'])
+def get_weather_data():
+
+    # get the prediction_id
+    prediction_id = request.form.get('prediction_id')
+
+    # get the prediction request, based on the prediction_id
+    prediction_request = PredictionRequest.query.get(prediction_id)
+
+    # get the city and country_code from the prediction_request
+    country_code = prediction_request.country_code
+    city = prediction_request.city
+
+    # execute the function
+    predictions_dict = import_weather_by_city(city, country_code)
+
+    # get all the saved predictions
+    prediction_requests = PredictionRequest.query.all()
+
+    # get the form
+    form = PredictionRequestForm()
+
+    # render the template
+    return render_template("index.html", 
+                           predictions_dict=predictions_dict,
+                           prediction_requests=prediction_requests,
+                           form=form,
+                           city=city,
+                           country_code=country_code)

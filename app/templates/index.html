@@ -24,6 +24,7 @@
         </div>
 
         <!-- Existing Prediction Requests-->
+        <form method="POST" action="get_weather_data" id="get_weather_data_form"></form>
         <div class="card">
             <div class="card-header">
                 Saved Prediction Requests
@@ -32,8 +33,12 @@
                 <ul class="list-unstyled">
                 {% for prediction in prediction_requests %}
                     <li>
-                        <button type="button" 
-                                class="btn btn-secondary top-margin">
+                        <button type="submit" 
+                                class="btn btn-secondary top-margin"
+                                form="get_weather_data_form"
+                                value="{{ prediction.id }}"
+                                name = "prediction_id"
+                                >
                             {{ prediction.country_code }} {{ prediction.city }}
                         </button>
                     </li>
@@ -44,14 +49,18 @@
     </div>
     <!-- Displayed predictions -->
     <div class="col-md-9">
+        {% if predictions_dict is defined %}
         <div class="card">
             <div class="card-header">
-                Predictions
+                Predictions for {{ country_code }} {{ city }}
             </div>
             <div class="card-body">
-                Placeholder
+                
+                    {{ predictions_dict }}
+    
             </div>
         </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
