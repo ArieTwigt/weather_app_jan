@@ -33,6 +33,14 @@
                 <ul class="list-unstyled">
                 {% for prediction in prediction_requests %}
                     <li>
+                        <a href="delete_prediction_request/{{ prediction.id }}"
+                           class="btn btn-danger">
+                            DELETE
+                        </a>
+                        <a href="edit_prediction_request/{{ prediction.id }}"
+                           class="btn btn-warning">
+                            EDIT
+                        </a>
                         <button type="submit" 
                                 class="btn btn-secondary top-margin"
                                 form="get_weather_data_form"
@@ -55,9 +63,26 @@
                 Predictions for {{ country_code }} {{ city }}
             </div>
             <div class="card-body">
-                
-                    {{ predictions_dict }}
-    
+                <table class="table table-striped">
+                    <thead>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Temperature</th>
+                        <th>Feels like temperature</th>
+                        <th>Rain</th>
+                    </thead>
+                    <tbody>
+                        {% for key, value in predictions_dict.items() %}
+                        <tr>
+                            <td>{{ key }}</td>
+                            <td>{{ value['description'] }}</td>
+                            <td>{{ value['temperature'] }}</td>
+                            <td>{{ value['feels_like'] }}</td>
+                            <td>{{ value['rain'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
         {% endif %}
