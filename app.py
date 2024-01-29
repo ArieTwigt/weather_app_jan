@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 
 # initialize the Flask application
@@ -8,7 +8,7 @@ app = Flask(__name__)
 # create the first route
 @app.route('/')
 def index():
-    return "Hello world"
+    return render_template("index.html")
 
 
 # run the application
