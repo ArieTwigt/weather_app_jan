@@ -13,13 +13,36 @@
                     <label for="country_code" class="form-label top-margin">Country code</label>
                     {{ form.country_code(class="form-control") }}
                     <label for="city" class="form-label top-margin">City</label>
+                    {% for error in form.city.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
                     {{ form.city(class="form-control") }}
 
                     {{ form.submit(class="btn btn-primary top-margin") }}
                 </form>
             </div>
         </div>
+
+        <!-- Existing Prediction Requests-->
+        <div class="card">
+            <div class="card-header">
+                Saved Prediction Requests
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                {% for prediction in prediction_requests %}
+                    <li>
+                        <button type="button" 
+                                class="btn btn-secondary top-margin">
+                            {{ prediction.country_code }} {{ prediction.city }}
+                        </button>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>    
     </div>
+    <!-- Displayed predictions -->
     <div class="col-md-9">
         <div class="card">
             <div class="card-header">

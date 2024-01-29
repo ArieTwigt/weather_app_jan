@@ -8,6 +8,9 @@ class PredictionRequest(db.Model):
     country_code = db.Column(db.String(5), nullable=True)
     city = db.Column(db.String(30), nullable=False)
 
+    # unique constraint for username, country_code and city
+    __table_args__ = (db.UniqueConstraint('username', 'country_code', 'city',
+                                          name='_username_country_city_uc'),)
 
     # represent the object from the class
     def __repr__(self):
