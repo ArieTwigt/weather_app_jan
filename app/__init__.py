@@ -1,15 +1,11 @@
 from flask import Flask, render_template
 
-
 # initialize the Flask application
 app = Flask(__name__)
 
 
-# create the first route
-@app.route('/')
-def index():
-    return render_template("index.html")
-
+# import the routes
+from . import routes
 
 # run the application
 if __name__ == "__main__":
