@@ -8,7 +8,15 @@
                 New Prediction
             </div>
             <div class="card-body">
-                Placeholder
+                <form method="post" action="/">
+                    {{ form.hidden_tag() }}
+                    <label for="country_code" class="form-label top-margin">Country code</label>
+                    {{ form.country_code(class="form-control") }}
+                    <label for="city" class="form-label top-margin">City</label>
+                    {{ form.city(class="form-control") }}
+
+                    {{ form.submit(class="btn btn-primary top-margin") }}
+                </form>
             </div>
         </div>
     </div>
